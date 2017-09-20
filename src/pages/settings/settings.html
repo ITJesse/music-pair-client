@@ -1,0 +1,54 @@
+<!--
+  Generated template for the SettingPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>设置</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content no-bounce padding>
+
+  <ion-list style="margin-top: 8px;">
+    <ion-list-header>
+      Server info
+    </ion-list-header>
+
+    <ion-item>
+      <ion-label stacked>Host</ion-label>
+      <ion-input type="text" value="" [(ngModel)]="host" clearInput="true"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Username</ion-label>
+      <ion-input type="text" [(ngModel)]="username" clearInput="true"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Password</ion-label>
+      <ion-input type="password" [(ngModel)]="password" clearInput="true"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+
+    <ion-list-header>
+      Other settings
+    </ion-list-header>
+
+    <ion-item>
+      <ion-label>Image Proxy</ion-label>
+      <ion-toggle [(ngModel)]="proxy"></ion-toggle>
+    </ion-item>
+
+  </ion-list>
+
+  <button ion-button block (click)="save()">Save</button>
+
+</ion-content>

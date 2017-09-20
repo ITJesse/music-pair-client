@@ -1,0 +1,31 @@
+<!--
+  Generated template for the RecentPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Recent</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-refresher (ionRefresh)="loadRecentData($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list>
+    <button ion-item *ngFor="let item of recents" (click)="search(item.song)">
+      <ion-avatar item-start>
+        <img [src]="item.song.albumPic">
+      </ion-avatar>
+      <h2>{{ item.song.name }} - {{ item.song.artist }}</h2>
+      <p>{{ item.song.album }}</p>
+    </button>
+  </ion-list>
+
+</ion-content>

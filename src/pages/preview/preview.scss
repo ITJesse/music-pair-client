@@ -1,0 +1,12 @@
+page-preview {
+  .play {
+    position: relative;
+    .play-btn {
+      border-radius: 50px;
+      position: absolute;
+      right: 0px;
+      top: 50%;
+      transform: translateY(-56%);
+    }
+  }
+}
