@@ -1,6 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
-import { Content } from 'ionic-angular';
+import { IonicPage, Content, NavController, NavParams, ToastController } from 'ionic-angular';
 import { AppPreferences } from '@ionic-native/app-preferences';
 
 import { UnblockProvider } from '../../providers/unblock/unblock';
@@ -22,6 +21,7 @@ export class RecentPage {
   @ViewChild(Content) content: Content;
   recents: any[];
   proxy: boolean = false;
+  loading: boolean = false;
 
   constructor(
     public navCtrl: NavController,
@@ -35,11 +35,14 @@ export class RecentPage {
   async ionViewDidLoad() {
     console.log('ionViewDidLoad RecentPage');
     this.proxy = (await this.appPreferences.fetch('proxy')) === '1';
+  }
 
+  ionViewDidEnter() {
     this.loadRecentData();
   }
 
   async loadRecentData(refresher = null) {
+    this.loading = true;
     try {
       await this.unblockApi.init();
       const res = await this.unblockApi.getRecents();
@@ -56,7 +59,7 @@ export class RecentPage {
               ...e,
               song,
             };
-          })
+          });
         }
       }
     } catch (error) {
@@ -67,6 +70,7 @@ export class RecentPage {
       toast.present();
       return console.log(error);
     }
+    this.loading = false;
     setTimeout(() => this.content.scrollToTop(), 50);
 
     if (refresher) {

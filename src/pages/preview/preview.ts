@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { Media, MediaObject } from '@ionic-native/media';
+
+import { UnblockProvider } from '../../providers/unblock/unblock';
 
 /**
  * Generated class for the PreviewPage page.
@@ -13,22 +15,28 @@ import { Media, MediaObject } from '@ionic-native/media';
 @Component({
   selector: 'page-preview',
   templateUrl: 'preview.html',
+  providers: [ UnblockProvider ],
 })
 export class PreviewPage {
   oldSong: any;
   newSong: any;
   playIcon: string = 'play';
   music: MediaObject;
+  loading: boolean = false;
   isPlay: boolean = false;
+  isPaired: boolean = false;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private media: Media,
+    public toastCtrl: ToastController,
+    private unblockApi: UnblockProvider,
   ) {
-    const { oldSong, newSong } = this.navParams.data;
+    const { oldSong, newSong, isPaired } = this.navParams.data;
     this.oldSong = oldSong;
     this.newSong = newSong;
+    this.isPaired = isPaired;
   }
 
   ionViewDidLoad() {
@@ -48,6 +56,44 @@ export class PreviewPage {
       this.music.pause();
       this.isPlay = false;
     }
+  }
+
+  async pair() {
+    this.loading = true;
+    try {
+      await this.unblockApi.init();
+      await this.unblockApi.pairMusic({
+        songId: this.oldSong.songId,
+        plugin: 'QQ Music',
+        ...this.newSong,
+      });
+    } catch (error) {
+      const toast = this.toastCtrl.create({
+        message: 'Pair music failed.',
+        duration: 3000,
+      });
+      toast.present();
+      return console.log(error);
+    }
+    this.navCtrl.popToRoot();
+    this.loading = false;
+  }
+
+  async unpair() {
+    this.loading = true;
+    try {
+      await this.unblockApi.init();
+      await this.unblockApi.unpairMusic(this.oldSong.songId);
+    } catch (error) {
+      const toast = this.toastCtrl.create({
+        message: 'Unpair music failed.',
+        duration: 3000,
+      });
+      toast.present();
+      return console.log(error);
+    }
+    this.navCtrl.popToRoot();
+    this.loading = false;
   }
 
   ionViewDidLeave() {

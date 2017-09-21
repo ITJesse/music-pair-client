@@ -7,12 +7,28 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>pair</ion-title>
+    <ion-title>Pairs</ion-title>
+    <ion-buttons end>
+      <ion-spinner *ngIf="loading"></ion-spinner>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
+  <ion-refresher (ionRefresh)="loadPairData($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list>
+    <button ion-item *ngFor="let item of pairs" (click)="preview(item)">
+      <ion-avatar item-start>
+        <img [src]="item.song.albumPic">
+      </ion-avatar>
+      <h2>{{ item.song.name }} - {{ item.song.artist }}</h2>
+      <p>{{ item.song.album }}</p>
+    </button>
+  </ion-list>
 
 </ion-content>

@@ -20,6 +20,8 @@ export class SearchPage {
   song: any;
   keyword: string = '';
   searchRes: any[];
+  searchTimeout: number;
+  loading: boolean = false;
 
   constructor(
     public navCtrl: NavController,
@@ -30,13 +32,19 @@ export class SearchPage {
     this.keyword = `${this.song.name} ${this.song.artist} ${this.song.album}`;
   }
 
-  async ionViewDidLoad() {
+  ionViewDidLoad() {
     console.log('ionViewDidLoad SearchPage');
+    this.search();
+  }
+
+  async search() {
+    this.loading = true;
     try {
       this.searchRes = await this.qqApi.search(this.keyword);
     } catch (error) {
       console.log(error);
     }
+    this.loading = false;
   }
 
   preview(song) {
@@ -44,6 +52,13 @@ export class SearchPage {
       oldSong: this.song,
       newSong: song,
     });
+  }
+
+  getItems() {
+    clearTimeout(this.searchTimeout);
+    this.searchTimeout = setTimeout(() => {
+      this.search();
+    }, 1000);
   }
 
 }

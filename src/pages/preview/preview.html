@@ -8,8 +8,16 @@
 
   <ion-navbar>
     <ion-title>{{ newSong.name }}</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="pair()" *ngIf="!loading && !isPaired">
+        Pair This
+      </button>
+      <button ion-button (click)="unpair()" *ngIf="!loading && isPaired">
+        Unpair This
+      </button>
+      <ion-spinner *ngIf="loading"></ion-spinner>
+    </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
 

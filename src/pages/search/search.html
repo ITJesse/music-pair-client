@@ -8,13 +8,16 @@
 
   <ion-navbar>
     <ion-title>Search</ion-title>
+    <ion-buttons end>
+      <ion-spinner *ngIf="loading"></ion-spinner>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content>
-  <ion-searchbar (ionInput)="getItems($event)" [(ngModel)]="keyword"></ion-searchbar>
+  <ion-searchbar (ionInput)="getItems()" [(ngModel)]="keyword"></ion-searchbar>
 
   <ion-list>
     <button ion-item *ngFor="let item of searchRes" (click)="preview(item)">

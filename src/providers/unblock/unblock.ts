@@ -17,6 +17,16 @@ interface ApiResponse {
   result: any;
 }
 
+interface SongInfo {
+  songId: number;
+  name: string;
+  artist: string;
+  album: string;
+  albumPic: string;
+  hash: string;
+  plugin: string;
+}
+
 @Injectable()
 export class UnblockProvider {
   host: string = '';
@@ -53,6 +63,18 @@ export class UnblockProvider {
 
   getRecents() {
     return this.http.get<ApiResponse>(`${this.host}/api/pair/recent`, { headers: this.makeHeader() }).toPromise();
+  }
+
+  getPairs() {
+    return this.http.get<ApiResponse>(`${this.host}/api/pair`, { headers: this.makeHeader() }).toPromise();
+  }
+
+  pairMusic(songInfo: SongInfo) {
+    return this.http.put<ApiResponse>(`${this.host}/api/pair`, songInfo, { headers: this.makeHeader() }).toPromise();
+  }
+
+  unpairMusic(songId: number) {
+    return this.http.delete<ApiResponse>(`${this.host}/api/pair/${songId}`, { headers: this.makeHeader() }).toPromise();
   }
 
 }

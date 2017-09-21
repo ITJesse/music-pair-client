@@ -63,6 +63,14 @@ export class QQProvider {
     }
   }
 
+  async init() {
+    try {
+      await this.getVKey();
+    } catch (err) {
+      return console.log('QQ Music module initial failed.');
+    }
+  }
+
   async getVKey() {
     if (!this.updateTime || this.updateTime + 3600 * 1000 < (new Date()).valueOf()) {
       try {
@@ -94,11 +102,7 @@ export class QQProvider {
   }
 
   async search(keyword) {
-    try {
-      await this.getVKey();
-    } catch (err) {
-      return console.log('QQ Music module initial failed.');
-    }
+    await this.init();
 
     if (!this.vkey || this.vkey.length !== 112) {
       return console.log('QQ Music module is not ready.');
@@ -116,7 +120,7 @@ export class QQProvider {
         artist: e.singer[0].name,
         album: e.album.name,
         albumPic: `https://y.gtimg.cn/music/photo_new/T002R300x300M000${e.album.mid}.jpg?max_age=2592000`,
-        mid: e.mid,
+        hash: e.mid,
         url: this.getUrl('C400', e.mid, 'm4a'),
       }
     })

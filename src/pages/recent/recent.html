@@ -8,6 +8,9 @@
 
   <ion-navbar>
     <ion-title>Recent</ion-title>
+    <ion-buttons end>
+      <ion-spinner *ngIf="loading"></ion-spinner>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
