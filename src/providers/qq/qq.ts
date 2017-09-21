@@ -41,17 +41,26 @@ interface SearchResponse {
   data: SearchData;
 }
 
+const isDev = ():boolean => {
+  if (!document.URL.startsWith('file:///')) {
+    return true;
+  }
+  return false;
+}
+
 @Injectable()
 export class QQProvider {
   baseUrl: string = 'dl.stream.qqmusic.qq.com';
   vkey: string = '';
   guid: number;
   updateTime: number;
-  // baseApi: string = '/qq';
   baseApi: string = 'https://c.y.qq.com';
 
   constructor(private http: HttpClient) {
     console.log('Hello QQProvider Provider');
+    if (isDev) {
+      this.baseApi = '/qq';
+    }
   }
 
   async getVKey() {

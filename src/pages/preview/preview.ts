@@ -34,7 +34,6 @@ export class PreviewPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad PreviewPage');
     console.log(this.newSong);
-    const self = this;
     this.music = this.media.create(this.newSong.url);
     this.music.onError.subscribe(error => console.log('Error!', error));
   }
@@ -51,7 +50,7 @@ export class PreviewPage {
     }
   }
 
-  ionViewWillLeave() {
+  ionViewDidLeave() {
     this.music.stop();
     this.music.release();
   }
