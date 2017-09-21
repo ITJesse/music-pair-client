@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/retry';
@@ -10,36 +10,6 @@ import 'rxjs/add/operator/retry';
   See https://angular.io/guide/dependency-injection for more info on providers
   and Angular DI.
 */
-
-interface VKeyResponse {
-  code: number;
-  key: string;
-}
-
-interface Singer {
-  name: string;
-}
-interface Album {
-  name: string;
-  mid: string;
-}
-interface Song {
-  name: string;
-  mid: string;
-  album: Album;
-  singer: Singer[];
-  url: string;
-}
-interface SongData {
-  list: Song[];
-}
-interface SearchData {
-  song: SongData;
-}
-interface SearchResponse {
-  code: number;
-  data: SearchData;
-}
 
 const isDev = ():boolean => {
   if (!document.URL.startsWith('file:///')) {
@@ -56,7 +26,7 @@ export class QQProvider {
   updateTime: number;
   baseApi: string = 'https://c.y.qq.com';
 
-  constructor(private http: HttpClient) {
+  constructor(private http: Http) {
     console.log('Hello QQProvider Provider');
     if (isDev) {
       this.baseApi = '/qq';
@@ -94,7 +64,7 @@ export class QQProvider {
     const url = `${this.baseApi}/base/fcgi-bin/fcg_musicexpress.fcg?json=3&guid=${this.guid}&g_tk=5381&loginUin=0&hostUin=0&format=json&inCharset=utf8&outCharset=utf8&notice=0&platform=yqq&needNewCode=0`;
 
     try {
-      const result = await this.http.get<VKeyResponse>(url).toPromise();
+      const result = await this.http.get(url).map(data => data.json()).toPromise();
       return result.key;
     } catch (err) {
       throw new Error(err);
@@ -110,7 +80,7 @@ export class QQProvider {
     const url = `${this.baseApi}/soso/fcgi-bin/client_search_cp?new_json=1&lossless=1&p=1&n=10&w=${encodeURIComponent(keyword)}&format=json`;
     let searchRes;
     try {
-      searchRes = await this.http.get<SearchResponse>(url).toPromise();
+      searchRes = await this.http.get(url).map(data => data.json()).toPromise();
     } catch (error) {
       throw new Error(error);
     }

@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.itjesse.musicpair" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.itjesse.musicpair" version="0.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Music Pair</name>
     <description>An app for UnblockNeteaseMusic</description>
     <author email="jesse@itjesse.com" href="https://www.itjesse.com/">Jesse Zhu</author>
-    <content src="index.html" />
+    <content original-src="index.html" src="http://192.168.3.133:8100" />
     <access origin="*" />
     <allow-navigation href="http://ionic.local/*" />
     <allow-intent href="http://*/*" />
@@ -82,7 +82,7 @@
     <allow-navigation href="http://192.168.3.133:8100" />
     <allow-navigation href="http://192.168.3.133:8101" />
     <engine name="browser" spec="^4.1.0" />
-    <engine name="ios" spec="^4.4.0" />
+    <engine name="ios" spec="^4.5.0" />
     <plugin name="cordova-plugin-app-preferences" spec="^0.99.3" />
     <plugin name="cordova-plugin-console" spec="^1.0.7" />
     <plugin name="cordova-plugin-device" spec="^1.1.6" />

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Http, Headers } from '@angular/http';
 import { AppPreferences } from '@ionic-native/app-preferences';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
@@ -11,11 +11,6 @@ import 'rxjs/add/operator/retry';
   See https://angular.io/guide/dependency-injection for more info on providers
   and Angular DI.
 */
-
-interface ApiResponse {
-  error: number;
-  result: any;
-}
 
 interface SongInfo {
   songId: number;
@@ -35,7 +30,7 @@ export class UnblockProvider {
   isInit: boolean = false;
 
   constructor(
-    public http: HttpClient,
+    public http: Http,
     private appPreferences: AppPreferences,
   ) {
     console.log('Hello UnblockProvider Provider');
@@ -52,29 +47,36 @@ export class UnblockProvider {
     this.isInit = true;
   }
 
-  private makeHeader(): HttpHeaders {
+  private makeHeader(): Headers {
     if (!this.isInit) throw new Error('Not init.');
-    return new HttpHeaders().set('Authorization', 'Basic ' + btoa(`${this.username}:${this.password}`));
+    const header = new Headers();
+    header.append('Authorization', 'Basic ' + btoa(`${this.username}:${this.password}`));
+    return header;
   }
 
   check() {
-    return this.http.get<ApiResponse>(`${this.host}/api/pair/check`, { headers: this.makeHeader() }).toPromise();
+    return this.http.get(`${this.host}/api/pair/check`, { headers: this.makeHeader() })
+      .map(data => data.json()).toPromise();
   }
 
   getRecents() {
-    return this.http.get<ApiResponse>(`${this.host}/api/pair/recent`, { headers: this.makeHeader() }).toPromise();
+    return this.http.get(`${this.host}/api/pair/recent`, { headers: this.makeHeader() })
+      .map(data => data.json()).toPromise();
   }
 
   getPairs() {
-    return this.http.get<ApiResponse>(`${this.host}/api/pair`, { headers: this.makeHeader() }).toPromise();
+    return this.http.get(`${this.host}/api/pair`, { headers: this.makeHeader() })
+      .map(data => data.json()).toPromise();
   }
 
   pairMusic(songInfo: SongInfo) {
-    return this.http.put<ApiResponse>(`${this.host}/api/pair`, songInfo, { headers: this.makeHeader() }).toPromise();
+    return this.http.put(`${this.host}/api/pair`, songInfo, { headers: this.makeHeader() })
+      .map(data => data.json()).toPromise();
   }
 
   unpairMusic(songId: number) {
-    return this.http.delete<ApiResponse>(`${this.host}/api/pair/${songId}`, { headers: this.makeHeader() }).toPromise();
+    return this.http.delete(`${this.host}/api/pair/${songId}`, { headers: this.makeHeader() })
+      .map(data => data.json()).toPromise();
   }
 
 }
