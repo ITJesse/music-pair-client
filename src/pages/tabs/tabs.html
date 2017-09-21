@@ -1,5 +1,5 @@
-<ion-tabs selectedIndex="0">
-  <ion-tab [root]="tab1Root" tabIcon="time" tabTitle="Recent"></ion-tab>
-  <ion-tab [root]="tab2Root" tabIcon="checkmark-circle" tabTitle="Pair"></ion-tab>
+<ion-tabs #myTabs selectedIndex="{{ selectedIndex }}">
+  <ion-tab [root]="tab1Root" tabIcon="time" tabTitle="Recent" [enabled]="isSet"></ion-tab>
+  <ion-tab [root]="tab2Root" tabIcon="checkmark-circle" tabTitle="Pair" [enabled]="isSet"></ion-tab>
   <ion-tab [root]="tab3Root" tabIcon="settings" tabTitle="Settings"></ion-tab>
 </ion-tabs>

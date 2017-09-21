@@ -22,6 +22,7 @@ export class SettingsPage {
   username: string = '';
   password: string = '';
   proxy: boolean = false;
+  loading: boolean = false;
 
   constructor(
     public navCtrl: NavController,
@@ -41,6 +42,7 @@ export class SettingsPage {
   }
 
   async save() {
+    this.loading = true;
     try {
       await this.appPreferences.store('host', this.host);
       await this.appPreferences.store('username', this.username);
@@ -76,8 +78,7 @@ export class SettingsPage {
     toast.present();
 
     await this.appPreferences.store('is_set', '1');
-
-    this.navCtrl.setRoot('TabsPage');
+    this.loading = false;
   }
 
 }
