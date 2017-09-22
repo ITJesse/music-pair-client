@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, Events } from 'ionic-angular';
 import { AppPreferences } from '@ionic-native/app-preferences';
 
 import { UnblockProvider } from '../../providers/unblock/unblock';
@@ -30,6 +30,7 @@ export class SettingsPage {
     private appPreferences: AppPreferences,
     public toastCtrl: ToastController,
     private unblockApi: UnblockProvider,
+    private events: Events,
   ) {
   }
 
@@ -68,6 +69,8 @@ export class SettingsPage {
         duration: 3000,
       });
       toast.present();
+      this.events.publish('set', false);
+      this.loading = false;
       return console.log(error);
     }
 
@@ -78,6 +81,7 @@ export class SettingsPage {
     toast.present();
 
     await this.appPreferences.store('is_set', '1');
+    this.events.publish('set', true);
     this.loading = false;
   }
 

@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Tabs } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Tabs, Events } from 'ionic-angular';
 import { AppPreferences } from '@ionic-native/app-preferences';
 
 /**
@@ -26,8 +26,12 @@ export class TabsPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private appPreferences: AppPreferences,
+    private events: Events,
   ) {
     this.selectedIndex = navParams.get("tab") ? navParams.get("tab") : 0;
+    this.events.subscribe('set', (value: boolean) => {
+      this.isSet = value;
+    });
   }
 
   ionViewDidLoad() {

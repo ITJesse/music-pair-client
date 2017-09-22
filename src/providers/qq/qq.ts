@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HTTP } from '@ionic-native/http';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/toPromise';
-import 'rxjs/add/operator/retry';
+import { AppPreferences } from '@ionic-native/app-preferences';
 
 /*
   Generated class for the QqProvider provider.
@@ -21,7 +19,10 @@ export class QQProvider {
   updateTime: number;
   baseApi: string = 'https://c.y.qq.com';
 
-  constructor(private http: HTTP) {
+  constructor(
+    private http: HTTP,
+    private appPreferences: AppPreferences,
+  ) {
     console.log('Hello QQProvider Provider');
     if (isDev) {
       this.baseApi = '/qq';
@@ -30,6 +31,10 @@ export class QQProvider {
 
   async init() {
     try {
+      const proxy = await this.appPreferences.fetch('proxy');
+      if (proxy === '1') {
+        this.baseApi = this.baseApi.replace('https://', 'http://101.96.10.58/');
+      }
       await this.getVKey();
     } catch (err) {
       return console.log('QQ Music module initial failed.');
