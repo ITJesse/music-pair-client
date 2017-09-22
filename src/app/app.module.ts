@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { AppPreferences } from '@ionic-native/app-preferences';
 import { Media } from '@ionic-native/media';
+import { HttpModule } from '@angular/http';
 
 import { MyApp } from './app.component';
 import { UnblockProvider } from '../providers/unblock/unblock';
@@ -16,6 +17,7 @@ import { QQProvider } from '../providers/qq/qq';
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],

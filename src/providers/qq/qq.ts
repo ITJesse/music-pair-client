@@ -11,12 +11,7 @@ import 'rxjs/add/operator/retry';
   and Angular DI.
 */
 
-const isDev = ():boolean => {
-  if (!document.URL.startsWith('file:///')) {
-    return true;
-  }
-  return false;
-}
+const isDev = false;
 
 @Injectable()
 export class QQProvider {
