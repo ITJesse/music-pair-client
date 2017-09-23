@@ -30,6 +30,7 @@
         "@ionic/storage": "2.0.1",
         "cordova-browser": "^4.1.0",
         "cordova-ios": "^4.5.0",
+        "cordova-ios-plugin-no-export-compliance": "0.0.5",
         "cordova-plugin-add-swift-support": "^1.7.0",
         "cordova-plugin-advanced-http": "^1.5.9",
         "cordova-plugin-app-preferences": "^0.99.3",
@@ -80,7 +81,8 @@
                 "UPDATE_API": "https://api.ionicjs.com",
                 "MAX_STORE": "2"
             },
-            "cordova-plugin-app-version": {}
+            "cordova-plugin-app-version": {},
+            "cordova-ios-plugin-no-export-compliance": {}
         },
         "platforms": [
             "browser",
