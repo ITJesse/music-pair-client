@@ -7,6 +7,7 @@ import { AppPreferences } from '@ionic-native/app-preferences';
 import { Media } from '@ionic-native/media';
 import { HttpModule } from '@angular/http';
 import { HTTP } from '@ionic-native/http';
+import { AppVersion } from '@ionic-native/app-version';
 
 import { MyApp } from './app.component';
 import { UnblockProvider } from '../providers/unblock/unblock';
@@ -31,6 +32,7 @@ import { QQProvider } from '../providers/qq/qq';
     AppPreferences,
     Media,
     HTTP,
+    AppVersion,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UnblockProvider,
     QQProvider,

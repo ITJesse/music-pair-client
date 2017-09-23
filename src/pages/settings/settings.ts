@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, Events } from 'ionic-angular';
 import { AppPreferences } from '@ionic-native/app-preferences';
+import { AppVersion } from '@ionic-native/app-version';
 
 import { UnblockProvider } from '../../providers/unblock/unblock';
 
@@ -23,6 +24,7 @@ export class SettingsPage {
   password: string = '';
   proxy: boolean = false;
   loading: boolean = false;
+  version: string = '';
 
   constructor(
     public navCtrl: NavController,
@@ -31,6 +33,7 @@ export class SettingsPage {
     public toastCtrl: ToastController,
     private unblockApi: UnblockProvider,
     private events: Events,
+    private appVersion: AppVersion,
   ) {
   }
 
@@ -40,6 +43,7 @@ export class SettingsPage {
     this.username = await this.appPreferences.fetch('username');
     this.password = await this.appPreferences.fetch('password');
     this.proxy = (await this.appPreferences.fetch('proxy')) === '1';
+    await this.getVersion();
   }
 
   async save() {
@@ -83,6 +87,10 @@ export class SettingsPage {
     await this.appPreferences.store('is_set', '1');
     this.events.publish('set', true);
     this.loading = false;
+  }
+
+  async getVersion() {
+     this.version = await this.appVersion.getVersionNumber();
   }
 
 }

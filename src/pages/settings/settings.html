@@ -50,6 +50,11 @@
       <ion-toggle [(ngModel)]="proxy"></ion-toggle>
     </ion-item>
 
+    <ion-item>
+      Music Pair
+      <ion-note item-end>{{ version }}</ion-note>
+    </ion-item>
+
   </ion-list>
 
   <button ion-button block (click)="save()" [disabled]="loading">Save</button>
