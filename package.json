@@ -29,12 +29,14 @@
         "@ionic/storage": "2.0.1",
         "cordova-browser": "^4.1.0",
         "cordova-ios": "^4.5.0",
+        "cordova-plugin-add-swift-support": "^1.7.0",
         "cordova-plugin-advanced-http": "^1.5.9",
         "cordova-plugin-app-preferences": "^0.99.3",
         "cordova-plugin-compat": "^1.1.0",
         "cordova-plugin-console": "^1.0.7",
         "cordova-plugin-device": "^1.1.6",
         "cordova-plugin-file": "^4.3.3",
+        "cordova-plugin-ionic": "^1.1.9",
         "cordova-plugin-media": "^3.0.1",
         "cordova-plugin-splashscreen": "^4.0.3",
         "cordova-plugin-statusbar": "git+https://github.com/apache/cordova-plugin-statusbar.git",
@@ -68,7 +70,14 @@
             },
             "cordova-plugin-advanced-http": {},
             "cordova-plugin-wkwebview-engine": {},
-            "cordova-plugin-statusbar": {}
+            "cordova-plugin-statusbar": {},
+            "cordova-plugin-ionic": {
+                "APP_ID": "c70d4165",
+                "CHANNEL_NAME": "Public",
+                "UPDATE_METHOD": "auto",
+                "UPDATE_API": "https://api.ionicjs.com",
+                "MAX_STORE": "2"
+            }
         },
         "platforms": [
             "browser",
